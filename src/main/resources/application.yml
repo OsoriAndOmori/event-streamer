@@ -1,0 +1,23 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: event-streamer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+http-endpoints:
+  endpoints:
+    - name: endpoint1
+      url: http://localhost:8081/api/endpoint1
+      method: POST
+      headers:
+        Content-Type: application/json
+      condition: "${event.type == 'TYPE1'}"
+    - name: endpoint2
+      url: http://localhost:8082/api/endpoint2
+      method: POST
+      headers:
+        Content-Type: application/json
+      condition: "${event.type == 'TYPE2'}" 
